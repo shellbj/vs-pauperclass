@@ -1,0 +1,18 @@
+{
+  "Type": 1,
+  "TextureSize": 32,
+  "Name": "Pauper Class",
+  "Version": "1.0.0",
+  "NetworkVersion": null,
+  "Description": "Adds a new character class that was the old peasant",
+  "Website": "",
+  "ModID": "pauperclass",
+  "Authors": [
+    "Cardinal Fang"
+  ],
+  "Contributors": [],
+  "Side": "Universal",
+  "RequiredOnClient": true,
+  "RequiredOnServer": true,
+  "dependencies": {}
+}
