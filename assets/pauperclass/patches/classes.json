@@ -1,0 +1,21 @@
+[
+  {
+    "file": "game:config/characterclasses",
+    "op": "add",
+    "path": "/-",
+    "value": {
+      "code": "pauper",
+      "traits": [],
+      "gear": [
+        {
+          "type": "item",
+          "code": "clothes-upperbody-tattered-linen-shirt"
+        },
+        {
+          "type": "item",
+          "code": "clothes-lowerbody-homespun-pants"
+        }
+      ]
+    }
+  }
+]
