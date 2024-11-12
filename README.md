@@ -1,19 +1,13 @@
-Pauper Class
-=================
+# Pauper Class
 
-Overview
---------
+## Overview
 
 A mod to add the old peasant class back with the poor starting equipment.
 
-Required Mods
---------
+## Required Mods
 
-Supported Mods
---------
+## Supported Mods
 
-Similar Mods
---------
+## Similar Mods
 
-Future plans
---------
+## Future plans

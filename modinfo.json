@@ -7,9 +7,7 @@
   "Description": "Adds a new character class that was the old peasant (pre 1.14.0)",
   "Website": "",
   "ModID": "pauperclass",
-  "Authors": [
-    "Cardinal Fang"
-  ],
+  "Authors": ["Cardinal Fang"],
   "Contributors": [],
   "Side": "Universal",
   "RequiredOnClient": true,
