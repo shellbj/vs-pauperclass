@@ -1,0 +1,65 @@
+---
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: { }
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    concurrency:
+      group: ${{ github.workflow }}-main-release
+      cancel-in-progress: true
+
+    timeout-minutes: 60
+
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          config-file: .github/release-please/config.json
+          manifest-file: .github/release-please/manifest.json
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release Artifact
+        if: ${{ steps.release.outputs.release_created }}
+        id: artifact
+        with:
+          include-file: .github/artifact/include.txt
+          exclude-file: .github/artifact/exclude.txt
+        run: |
+          RELEASE_VERSION="${{ steps.release.outputs.tag_name }}"
+          if [ -z "${RELEASE_VERSION}" ]; then
+            echo "Error RELEASE_VERSION is empty. Exiting..."
+            exit 1
+          fi
+
+          MOD_NAME = "$(cat ./modinfo.json | jq -r .name)"
+          if [ -z "${MOD_NAME}" ]; then
+            echo "Error MOD_NAME is empty. Exiting..."
+            exit 1
+          fi
+
+          ARCHIVE_NAME=${MOD_NAME}-${RELEASE_VERSION}.zip
+
+          zip -r ${ARCHIVE_NAME} . --exclude @${exclude-file} --include @${include-file}
+
+          {
+            echo "ARCHIVE_NAME=${ARCHIVE_NAME}"
+          } >> "${GITHUB_ENV}"
+
+      - name: Attach Release Artifact
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ steps.release.outputs.tag_name }} ${{ ARCHIVE_NAME }}
